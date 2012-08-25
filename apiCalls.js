@@ -67,9 +67,9 @@ function getAvailableCountries(countries, callback) {
 
 function fetchTrends(countries, io, trendsList)
 {
-	for(i=0; i<countries.length; i++)
+	for(i=0; i<1; i++)
 	{
-		console.log("Fetching Trends of Country: "+ countries[i].name);
+		//console.log("Fetching Trends of Country: "+ countries[i].name);
 		var options = {
 			host: 'api.twitter.com',
 			path: '/1/trends/' + countries[i].woeid +'.json'
@@ -81,8 +81,10 @@ function fetchTrends(countries, io, trendsList)
 				data += chunk;
 			});
 			resp.on('end', function() {
-				trendsList[countries[i].woeid] = data;
-				io.sockets.emit('trendUpdate', data);
+				var response = JSON.parse(data);
+				console.log(response);
+				trendsList[response[0].locations[0].woeid] = response[0];
+				io.sockets.emit('trendUpdate', response[0]);
 			});
 		})
 		.on("error", function(e){
