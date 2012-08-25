@@ -100,7 +100,7 @@ var markerArray = []; //create a global array to store markers
 function initialize() {
     document.getElementById("map_canvas").innerHTML='sdsd';
     var myOptions = {
-        zoom: 2,
+        zoom: 6,
         center: new google.maps.LatLng(43.907787, -79.359741),
         mapTypeId: google.maps.MapTypeId.ROADMAP
     }
@@ -127,9 +127,10 @@ window.onload = initialize;
 	  socket.on('init', function (data) {
 	    console.log(data);
 	    for (var i=0;i < data.length;i++){
-			for (var j=0;j<country.country.length;j++)
+			for (var j=0;j<50;j++)
 			{
-					if (data.locations[0].name==country.country[i].countryName){
+					console.log(data[i].locations[0].name);
+					if (data[i].locations[0].name==country.country[j].countryName){
 					var p1=parseFloat(country.country[j].north);
 					var p2=parseFloat(country.country[j].south);
 					var p3=parseFloat(country.country[j].east);
@@ -139,7 +140,7 @@ window.onload = initialize;
 					var marker = new google.maps.Marker({
 						position: latlng,
 						map: map,
-						icon: icon[10]+country.country[i].countryName+" "+kkk+"|C6EF8C|000000"
+						icon: icon[10]+escape(data[i].trends[kkk].name)+"|C6EF8C|000000"
 					});
 					
 					}
