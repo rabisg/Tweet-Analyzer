@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<title>NodeJS Stream using Server Sent Event Stream</title>
+	<meta charset="utf-8" />
+	<link rel="shortcut icon" href="/a/i/favicon.png" type="image/png" />
+	  <title> Tweet Map </title> 
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+                <link rel="stylesheet" href="libs/dist/leaflet.css"/>
+                <link rel="stylesheet" href="style.css"/>
+	<style>
+	</style>
+</head>
+<body>
+	
+	<div id="map"></div>
+			
+		
+	<ol id="info">
+		Real-Time Geolocated Tweets
+	</ol>
+
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+
+	<script type="text/javascript" src="libs/dist/leaflet.js"></script>
+
+	<!--<script type="text/javascript" src="main.js"></script>-->
+
+	<script src="/socket.io/socket.io.js"></script>
+	<script>
+	  var socket = io.connect('localhost');
+	  socket.on('init', function (data) {
+	    console.log(data);
+	  });
+	  socket.on('trendUpdate', function (data) {
+	    console.log(data);
+	  });
+	</script>
+
+
+</body>
+</html>
+
