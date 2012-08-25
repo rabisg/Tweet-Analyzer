@@ -53,12 +53,6 @@ function moodAnalyze(text2) {
 	else return 0;
 }
 
-function intermittentBroadcast(io, data, eventName)
-{
-	io.sockets.emit(eventName, data);
-	//setTimeout(intermittentBroadcast(io,data,eventName),  1000)
-}
 
 exports.moodAnalyze = moodAnalyze;
 exports.merge = merge;
-exports.intermittentBroadcast = intermittentBroadcast;

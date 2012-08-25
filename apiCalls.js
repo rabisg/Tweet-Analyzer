@@ -67,8 +67,7 @@ function getAvailableCountries(countries, callback) {
 	}).end();
 }
 
-function fetchTrends(countries, io, trendsList)
-{
+function fetchTrends(countries, io, trendsList){
 	for(i=0; i<countries.length; i++)
 	{
 		console.log("Fetching Trends of Country: "+ countries[i].name);
@@ -97,8 +96,7 @@ function fetchTrends(countries, io, trendsList)
 	}
 }
 
-function stream(onStatusCallback)
-{
+function stream(onStatusCallback){
 	var jsonTwitter = new jsonline();
 	
 	var username = config.twitter_username,

@@ -78,21 +78,29 @@ apiCalls.stream( function(data) {
 		if(!countryEmotion.hasOwnProperty(data.place.country_code))
 			countryEmotion[data.place.country_code] = {
 				'positive': 0,
-				'negative': 0
+				'negative': 0,
+				'neutral': 0
 			};
 		if((m = util.moodAnalyze(data.text))==1)
 			countryEmotion[data.place.country_code]['positive'] += 1;
 		else if(m==-1)
 			countryEmotion[data.place.country_code]['negative'] += 1;
+		else countryEmotion[data.place.country_code]['neutral'] += 1;
 		console.log(countryEmotion);
-		io.sockets.emit('emotionUpdate', JSON.stringify(countryEmotion));
 	}
 });
 
-
+setInterval( function() {
+	var arr = [];
+	for(var key in countryEmotion)
+	{
+		if (key === 'length' || !countryEmotion.hasOwnProperty(key)) continue;
+		var score = (countryEmotion[key]['positive']*100.0)/(countryEmotion[key]['positive']+countryEmotion[key]['negative']+countryEmotion[key]['neutral']);
+		var abcd={'Country': key, 'Score': score};
+		arr.push(JSON.stringify(abcd));
+	}
+	io.sockets.emit('emotionUpdate', JSON.stringify(arr));
+}, 1000);
 io.sockets.on('connection', function (socket) {
   socket.emit('init', trendsList);
-  /*socket.on('getEmotion', function (data) {
-    socket.emit('emotionUpdate', countryEmotion);
-  });*/
 });
