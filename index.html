@@ -10,8 +10,10 @@
         
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
       <script type='text/javascript' src="http://maps.google.com/maps/api/js?sensor=false&.js"></script>
+      <link href='http://fonts.googleapis.com/css?family=Headland+One' rel='stylesheet' type='text/css'>
       <script type='text/javascript' src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/markerclusterer/src/markerclusterer.js"></script>
 <link rel="stylesheet" type="text/css" href="style2.css" />
+<link rel="stylesheet" type="text/css" href="style3.css" />
 	  <script type='text/javascript' src="http://google-maps-utility-library-v3.googlecode.com/svn/tags/infobox/1.1.5/src/infobox.js"></script>
 <link rel="shortcut icon" href="/a/i/favicon.png" type="image/png" />
 	<script type='text/javascript' src='https://www.google.com/jsapi'></script>
@@ -100,12 +102,19 @@ function relative_time(time_value) {
 </script>
 </head>
 <body>
-<button id="tog">Toggle</button>
+<div id="navi">
+	<div id="cont">
+		<div id="title">TWEET MAP & SENTIMENT ANALYZER</div>
+		<div id="tog"><center>Go To Sentiments Map</center></div>
+	</div>
+</div>
+<br />
+<!--<button id="tog">Toggle</button>-->
 <div id="top"><div id="map_canvas"></div>
 <div id="twitter">
 		<a id="go_back" href="javascript:history.go(-1)">Go Back</a>
-                <h1>A Love For Design</h1>
-                <h2>Twitter Feed</h2>
+                <h1 id="countrytitle">Global</h1>
+                <h2 id="countrysubtitle">Twitter Feed</h2>
                 <ul id="twitter_update_list">
         	</ul>
 </div>
@@ -124,7 +133,7 @@ function relative_time(time_value) {
 	  });
 	  socket.on('emotionUpdate', function (data) {
 	  	drawRegionsMap(data);
-	    console.log(data);
+	    //console.log(data);
 	  });
 	</script>
 <div id="new"></div>
@@ -185,8 +194,12 @@ function initialize() {
 		$("#chart_div").fadeIn('fast');
 		});
 	});*/
-	$("#chart_div").toggle();
-	$("#top").toggle();
+	$("#chart_div").toggle('slow');
+	$("#top").toggle('slow');
+	if(document.getElementById("tog").innerHTML=="<center>Go To Sentiments Map</center>")
+		document.getElementById("tog").innerHTML="<center>Go To Trends Map</center>";
+	else
+		document.getElementById("tog").innerHTML="<center>Go To Sentiments Map</center>";
 });
     google.maps.event.addListener(map, 'click', function() {
         infowindow.close();
@@ -226,6 +239,8 @@ marker.note=country.country[j];
 
     
 google.maps.event.addListener(marker, 'click', function() {
+		document.getElementById("countrytitle").innerHTML=this.content;
+		document.getElementById("countrysubtitle").innerHTML="Feed for "+this.note2;
 		console.log(escape(this.note2));
 		initTwit(escape(this.note2));
 		infowindow.content=this.content;
@@ -242,6 +257,32 @@ google.maps.event.addListener(marker, 'click', function() {
 	  });
 	  window.onload = initialize;
 	</script>
+
+	<div id="searchwrapper">
+		<form method="POST" action="">
+			<input id="terms" type="terms" id="terms" onfocus="this.value='';" name="terms" value="Comma-Separated Search Terms">
+
+			<input type="username" id="username" name="username" onfocus="this.value='';" value="Twitter Username">
+
+			<input type="password" id="password" name="password" onfocus="this.value='';" value="Twitter Password">
+
+			<input type="submit" value="Search Trends" /> 
+		</form>
+	</div>
+
+	<div id="footwrapper">
+		<div id="footer">
+			<div id="col1">
+				<center><strong>TRENDING</strong></center>
+				<hr />
+				<!--<iframe src="http://www.google.com/trends/hottrends/atom/hourly"></iframe>-->
+			</div>
+			<div id="col2">
+				<center><strong>CHARTS</strong></center>
+				<hr />
+			</div>
+		</div>
+	</div>
 </body>
 
 

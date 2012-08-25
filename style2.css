@@ -1,17 +1,18 @@
 body    {
-        background: #111111;
+        background: #ddd;
         position: relative;
-        font-family: Arial, Helvetica, sans-serif;
+        //font-family: Arial, Helvetica, sans-serif;
         font-size: 14px;
         font-weight: bold;
         color: #ccc;
+        font-family: 'Headland One', serif;
 }
 h1 { padding: 20px 0 0 15px; margin: 0; letter-spacing: -3px; }
 h2 { padding: 0 0 0 15px; margin: 0; color: #777; letter-spacing: -2px; }
 .loader         { position: absolute; top: 250px; left: 105px; }
 #twitter        { position: relative; width: 280px; background: #222; height:
 820px; margin: 50px 0 0 250px;  }
-#twitter li p   { padding: 0 0 15px; }
+#twitter li p   { padding: 0 0 5px; }
 #twitter p a:link, #twitter p a:active, #twitter p a:visited    { color:
 #6fb2cd; text-decoration: none; }
 #twitter p a:hover      { text-decoration: underline; }
