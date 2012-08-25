@@ -5,12 +5,14 @@ var url = require("url"),
 	fs = require("fs"),
 	apiCalls = require('./apiCalls'),
 	app = require('http').createServer(handler),
+	util = require('./util'),
   	io = require('socket.io').listen(app);
 
 app.listen(config.port);
 
-var countries = new Array(),
-	trendsList = new Array();
+var countries = [],
+	trendsList = [],
+	countryEmotion = [];
 
 function handler (req, res) 
 {
@@ -71,9 +73,26 @@ console.log('Server running at http://'+config.address+':'+config.port+'/');
 });*/
 
 apiCalls.stream( function(data) {
-	console.log("Tweet Stream" + data + "\n");
+	console.log("Tweet Stream: " + data.text + "\n");
+	if(data.place) {
+		if(!countryEmotion.hasOwnProperty(data.place.country_code))
+			countryEmotion[data.place.country_code] = {
+				'positive': 0,
+				'negative': 0
+			};
+		if((m = util.moodAnalyze(data.text))==1)
+			countryEmotion[data.place.country_code]['positive'] += 1;
+		else if(m==-1)
+			countryEmotion[data.place.country_code]['negative'] += 1;
+		console.log(countryEmotion);
+		io.sockets.emit('emotionUpdate', JSON.stringify(countryEmotion));
+	}
 });
+
 
 io.sockets.on('connection', function (socket) {
   socket.emit('init', trendsList);
+  /*socket.on('getEmotion', function (data) {
+    socket.emit('emotionUpdate', countryEmotion);
+  });*/
 });

@@ -74,7 +74,7 @@ function fetchTrends(countries, io, trendsList)
 		console.log("Fetching Trends of Country: "+ countries[i].name);
 		var options = {
 			host: 'api.twitter.com',
-			path: '/1/trends/' + countries[i].woeid +'.json'
+			path: '/1/trends/' + countries[i].woeid +'.json?lang=en'
 		};
 
 		https.get(options, function(resp){
@@ -106,7 +106,7 @@ function stream(onStatusCallback)
 	
 	var options = {
 		host: 'stream.twitter.com',
-		path: '/1/statuses/sample.json',
+		path: '/1/statuses/filter.json?locations=-180,-90,180,90',
 		headers: {
 			'Authorization': 'Basic ' + new Buffer(username + ':' + password).toString('base64')
 		}
