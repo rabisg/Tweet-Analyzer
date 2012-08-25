@@ -1,43 +1,158 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html>
 <head>
-	<title>NodeJS Stream using Server Sent Event Stream</title>
+<head>
+	
 	<meta charset="utf-8" />
-	<link rel="shortcut icon" href="/a/i/favicon.png" type="image/png" />
+	
 	  <title> Tweet Map </title> 
-                <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-                <link rel="stylesheet" href="libs/dist/leaflet.css"/>
-                <link rel="stylesheet" href="style.css"/>
-	<style>
-	</style>
+        
+        
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+      <script type='text/javascript' src="http://maps.google.com/maps/api/js?sensor=false&.js"></script>
+      <script type='text/javascript' src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/markerclusterer/src/markerclusterer.js"></script>
+	  <script type='text/javascript' src="http://google-maps-utility-library-v3.googlecode.com/svn/tags/infobox/1.1.5/src/infobox.js"></script>
+  
+  <style type='text/css'>
+  .infowindow
+    {
+        font-size:24px;
+        width: 950px;
+        color: #ff0000;
+        font-family:Arial, Helvetica, sans-serif;
+    }
+    #map_canvas{
+  width: 1200px;
+    height: 600px;
+}
+ #chart_div{
+	display:none;
+}
+#qw{
+	overflow:auto;
+	width:300px;
+	height:200px;
+	border-radius:10px;
+	border:2px solid black;
+}
+#tweets{
+	padding-left:10px;
+}
+  </style>
+  
 </head>
 <body>
-	
-	<div id="map"></div>
-			
-		
-	<ol id="info">
-		Real-Time Geolocated Tweets
-	</ol>
+<button id="tog">Toggle</button>
+<div id="map_canvas"></div>
+<div id="chart_div"></div>  
+<script src="country.json" type="text/javascript"></script>
+<script type='text/javascript' src='https://www.google.com/jsapi'></script>
+    <script type='text/javascript'>
+     google.load('visualization', '1', {'packages': ['geochart']});
+     google.setOnLoadCallback(drawRegionsMap);
 
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+      function drawRegionsMap() {
+        var data = google.visualization.arrayToDataTable([
+          ['Country', 'Popularity'],
+          ['Germany', 100],
+          ['United States', 300],
+          ['Brazil', 400],
+          ['Canada', 500],
+          ['France', 600],
+          ['RU', 700]
+        ]);
 
-	<script type="text/javascript" src="libs/dist/leaflet.js"></script>
+        var options = {colorAxis:{minValue: 0,  colors: ['FF0000', '#00FF00']},height:'550',width:'1200'};
 
-	<!--<script type="text/javascript" src="main.js"></script>-->
+        var chart = new google.visualization.GeoChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+    };
+    </script>
+<script type='text/javascript' src='http://code.jquery.com/jquery-git.js'></script>
+<script type='text/javascript'>
+$(document).ready(function(){
+	$("#tog").click(function(){
+		$("#map_canvas").fadeOut('fast',function(){
+		$("#chart_div").fadeIn('fast');
+		});
+	});
+});
+</script>
+<script type='text/javascript'>
+var map = null;
+	    var content ='';
+
+var icon=new Array();
+icon[0] = "http://chart.apis.google.com/chart?cht=mm&chs=24x32&chco=FFFFFF,008CFF,000000&ext=.png";
+icon[1] = "http://chart.apis.google.com/chart?cht=mm&chs=24x32&chco=FFFFFF,008CFF,000000&ext=.png";
+icon[2] = "http://chart.apis.google.com/chart?cht=mm&chs=24x32&chco=FFFFFF,F32CF0,000000&ext=.png";
+icon[3] = "http://chart.apis.google.com/chart?cht=mm&chs=24x32&chco=FFFFFF,A344AF,000000&ext=.png";
+icon[4] = "http://chart.apis.google.com/chart?cht=mm&chs=24x32&chco=FFFFFF,A7832F,000000&ext=.png";
+icon[5] = "http://chart.apis.google.com/chart?cht=mm&chs=24x32&chco=FFFFFF,9BFF34,000000&ext=.png";
+icon[6] = "http://chart.apis.google.com/chart?cht=mm&chs=24x32&chco=FFFFFF,07FFF7,000000&ext=.png";
+icon[7] = "http://chart.apis.google.com/chart?cht=mm&chs=24x32&chco=FFFFFF,0FFAAA,000000&ext=.png";
+icon[8] = "http://chart.apis.google.com/chart?cht=mm&chs=24x32&chco=FFFFFF,008C12,000000&ext=.png";
+icon[9] = "http://chart.apis.google.com/chart?cht=mm&chs=24x32&chco=FFFFFF,AABA4F,000000&ext=.png";
+icon[10] = "https://chart.googleapis.com/chart?chst=d_bubble_text_small&chld=bb|";
+
+var markerArray = []; //create a global array to store markers
+
+function initialize() {
+    document.getElementById("map_canvas").innerHTML='sdsd';
+    var myOptions = {
+        zoom: 2,
+        center: new google.maps.LatLng(43.907787, -79.359741),
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+    }
+    map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+
+    var mcOptions = {
+        gridSize: 0,
+        maxZoom: 1
+    };
+var mc = new MarkerClusterer(map, [], mcOptions);
+	mc.addMarkers(markerArray , true);
+}
+
+
+window.onload = initialize;
+
+</script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+
 
 	<script src="/socket.io/socket.io.js"></script>
 	<script>
 	  var socket = io.connect('localhost');
 	  socket.on('init', function (data) {
 	    console.log(data);
+	    for (var i=0;i < data.length;i++){
+			for (var j=0;j<country.country.length;j++)
+			{
+					if (data.locations[0].name==country.country[i].countryName){
+					var p1=parseFloat(country.country[j].north);
+					var p2=parseFloat(country.country[j].south);
+					var p3=parseFloat(country.country[j].east);
+					var p4=parseFloat(country.country[j].west);
+					for(var kkk=0; kkk<10; kkk++){
+						latlng=new google.maps.LatLng((p1+p2)/2+((Math.random()*2-1)*((p1-p2)/2)),(p3+p4)/2+((Math.random()*2-1)*((p3-p4)/2)));
+					var marker = new google.maps.Marker({
+						position: latlng,
+						map: map,
+						icon: icon[10]+country.country[i].countryName+" "+kkk+"|C6EF8C|000000"
+					});
+					
+					}
+					}
+					}
+					}
 	  });
 	  socket.on('trendUpdate', function (data) {
 	    console.log(data);
 	  });
 	</script>
-
-
 </body>
+
+
 </html>
 
