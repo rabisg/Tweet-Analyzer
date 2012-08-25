@@ -23,8 +23,8 @@ function moodAnalyze(text2) {
 	}
 	for (var i=0;i<lk2.length;i++){
 		if (lk2[i] in m){
-			console.log(lk2[i]);
-			console.log(m[lk2[i]]);
+			//console.log(lk2[i]);
+			//console.log(m[lk2[i]]);
 			if (m[lk2[i]]==1)
 				k2['positive']+=1;
 			else if(m[lk2[i]]==0)

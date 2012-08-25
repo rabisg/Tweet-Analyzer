@@ -73,7 +73,7 @@ console.log('Server running at http://'+config.address+':'+config.port+'/');
 });*/
 
 apiCalls.stream( function(data) {
-	console.log("Tweet Stream: " + data.text + "\n");
+	//console.log("Tweet Stream: " + data.text + "\n");
 	if(data.place) {
 		if(!countryEmotion.hasOwnProperty(data.place.country_code))
 			countryEmotion[data.place.country_code] = {
@@ -86,7 +86,7 @@ apiCalls.stream( function(data) {
 		else if(m==-1)
 			countryEmotion[data.place.country_code]['negative'] += 1;
 		else countryEmotion[data.place.country_code]['neutral'] += 1;
-		console.log(countryEmotion);
+		//console.log(countryEmotion);
 	}
 });
 
@@ -96,11 +96,11 @@ setInterval( function() {
 	{
 		if (key === 'length' || !countryEmotion.hasOwnProperty(key)) continue;
 		var score = (countryEmotion[key]['positive']*100.0)/(countryEmotion[key]['positive']+countryEmotion[key]['negative']+countryEmotion[key]['neutral']);
-		var abcd={'Country': key, 'Score': score};
+		var abcd={Country: key, Score: score};
 		arr.push(JSON.stringify(abcd));
 	}
 	io.sockets.emit('emotionUpdate', JSON.stringify(arr));
-}, 1000);
+}, 3000);
 io.sockets.on('connection', function (socket) {
   socket.emit('init', trendsList);
 });
