@@ -68,9 +68,9 @@ function handler (req, res)
 console.log('Server running at http://'+config.address+':'+config.port+'/');
 
 
-/*apiCalls.getAvailableCountries(countries, function() {
+apiCalls.getAvailableCountries(countries, function() {
 	apiCalls.fetchTrends(countries, io, trendsList);
-});*/
+});
 
 apiCalls.stream( function(data) {
 	//console.log("Tweet Stream: " + data.text + "\n");

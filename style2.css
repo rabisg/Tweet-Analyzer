@@ -1,0 +1,62 @@
+body    {
+        background: #111111;
+        position: relative;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 14px;
+        font-weight: bold;
+        color: #ccc;
+}
+h1 { padding: 20px 0 0 15px; margin: 0; letter-spacing: -3px; }
+h2 { padding: 0 0 0 15px; margin: 0; color: #777; letter-spacing: -2px; }
+.loader         { position: absolute; top: 250px; left: 105px; }
+#twitter        { position: relative; width: 280px; background: #222; height:
+820px; margin: 50px 0 0 250px;  }
+#twitter li p   { padding: 0 0 15px; }
+#twitter p a:link, #twitter p a:active, #twitter p a:visited    { color:
+#6fb2cd; text-decoration: none; }
+#twitter p a:hover      { text-decoration: underline; }
+#twitter ul     {
+	position:absolute;
+        width: 260px;
+        height: auto;
+        padding: 15px 0 0 15px;
+        margin: 0;
+}
+#twitter li     {
+        float: left;
+        margin: 3px 0;
+        list-style-type: none;
+}
+li.twitter_date {
+        background: url(../images/date_bg.jpg) no-repeat left top;
+        width: 95px;
+        height: 23px;
+        text-align: center;
+        line-height: 21px;
+}
+.twitter_date a:active, .twitter_date a:link, .twitter_date a:visited   {
+        color: #666;
+        background: #333;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 11px;
+        text-decoration: none;
+        text-transform: uppercase;
+        padding: 7px;
+}
+.twitter_date a:hover   {
+        color: #666;
+}
+a:link#go_back, a:active#go_back, a:visited#go_back     {
+        display: block;
+        background: url(/demos/go_back.jpg) no-repeat top left;
+        width: 120px;
+        height: 40px;
+        position: absolute;
+        top: 50px;
+        left: 100px;
+        text-indent: -9999px;
+        color: #111;
+}
+a:hover#go_back {
+        //background: url(/demos/go_back.jpg) no-repeat -120px 0;
+}
