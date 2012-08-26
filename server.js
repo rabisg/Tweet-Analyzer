@@ -68,7 +68,7 @@ function handler (req, res)
 console.log('Server running at http://'+config.address+':'+config.port+'/');
 
 
-/*apiCalls.getAvailableCountries(countries, function() {
+apiCalls.getAvailableCountries(countries, function() {
 	apiCalls.fetchTrends(countries, io, trendsList);
 });
 
@@ -101,7 +101,7 @@ setInterval( function() {
 	}
 	io.sockets.emit('emotionUpdate', JSON.stringify(arr));
 }, 3000);
-*/
+
 
 io.sockets.on('connection', function (socket) {
 	socket.emit('init', trendsList);

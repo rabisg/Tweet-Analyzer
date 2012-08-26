@@ -80,7 +80,7 @@ function getParam(name)
   if( results == null )
     return "";
   else
-    return results[1];
+    return unescape(results[1]);
 }
 exports.moodAnalyze = moodAnalyze;
 exports.merge = merge;
