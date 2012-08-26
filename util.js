@@ -62,16 +62,12 @@ function Analyze(data, keywords, trends) {
 			keyword =  i;
 	if(data.place && keyword>=0) {
 		if(!trends[keyword].hasOwnProperty(data.place.country))
-			trends[keyword][data.place.country] = {
-				'positive': 0,
-				'negative': 0,
-				'neutral': 0
-			};
+			trends[keyword][data.place.country] = [0,0,0];
 		if((m = moodAnalyze(data.text))==1)
-			trends[keyword][data.place.country]['positive'] += 1;
+			trends[keyword][data.place.country][0] += 1;
 		else if(m==-1)
-			trends[keyword][data.place.country]['negative'] += 1;
-		else trends[keyword][data.place.country]['neutral'] += 1;
+			trends[keyword][data.place.country][1] += 1;
+		else trends[keyword][data.place.country][2] += 1;
 		//console.log(trends);
 	}
 }
