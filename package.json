@@ -1,0 +1,44 @@
+{
+  "name": "Tweet Analyzer",
+  "version": "1.0",
+  "author": "Rabi Shanker Guha <guha.rabishankar@gmail.com>",
+  "description": "a simple zero-configuration command-line http server",
+  "contributors": [ 
+    {
+      "name": "Shikhar Sharma",
+      "email": "shikhar38@gmail.com"
+    },
+    {
+      "name": "Mridul Verma",
+      "email": "mridulv09@gmail.com"
+    }, 
+    {
+      "name": "Rahul Kumar",
+      "email": "rahul10u@gmail.com"
+    }  
+  ],
+  "main": ".server",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rabisg/Tweet-Analyzer"
+  },
+  "keywords": [
+    "node twitter",
+    "twitter stream",
+    "tweet analysis",
+    "sentiment analysis"
+  ],
+  "dependencies" : {
+    "json-line-protocol"   :  "*",
+    "socket.io" :  "0.9.x",
+    "path" : "*"
+  },
+  "devDependencies": {
+    "vows"    :  "0.5.x",
+    "request" :  "2.1.x"
+  },
+  "license": "MIT",
+  "engine": {
+    "node": ">=0.6"
+  }
+}

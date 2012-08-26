@@ -1,0 +1,27 @@
+This app deals with the analysis of the tweets. In this
+app we have analysed the tweets acoording to the Hashtags
+specified by the user and then analysed it's sentiments.
+We have used the twitter live streaming API for the live twitter feeds
+and filtered the contents according to the hashtags specified by the user.
+We have also implemented the hashtags trending in the world and we have
+also updated the top 10 hashtags of each country whose trending hashtags
+have been displayed on the map. We have used node.js and socket.io in the
+backend to retrieve the tweets from the twitter live streaming api.For the 
+Front end we have used Google Map API's to display the markers.
+
+Created at HackU'12: IIT KANPUR
+- Rabi Shanker Guha
+- Shikhar Sharma
+- Mridul Verma
+- Rahul Kumar
+To run this app:
+
+npm install
+sudo node server.js
+
+
+NOTE:
+sudo because it listens on port 80. You can change it on config.js
+Keep it >8000
+If you are running apache or any server it might conflict. Either
+stop your server or change port address.
