@@ -53,6 +53,34 @@ function moodAnalyze(text2) {
 	else return 0;
 }
 
-
+function Analyze(data, keywords, trends) {
+	if(!data.text)
+		return;
+	var keyword =  -1;
+	for(i=0; i<keywords.length; i++)
+		if(data.text.toLowerCase().indexOf(keywords[i]) >= 0)
+			keyword =  i;
+	if(data.place && keyword>=0) {
+		if(!trends[keyword].hasOwnProperty(data.place.country))
+			trends[keyword][data.place.country] = [0,0,0];
+		if((m = moodAnalyze(data.text))==1)
+			trends[keyword][data.place.country][0] += 1;
+		else if(m==-1)
+			trends[keyword][data.place.country][1] += 1;
+		else trends[keyword][data.place.country][2] += 1;
+		//console.log(trends);
+	}
+}
+function getParam(name)
+{
+  name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
+  var regexS = "[\\?&]"+name+"=([^&#]*)";
+  var regex = new RegExp( regexS );
+  var results = regex.exec( window.location.href );
+  if( results == null )
+    return "";
+  else
+    return unescape(results[1]);
+}
 exports.moodAnalyze = moodAnalyze;
 exports.merge = merge;

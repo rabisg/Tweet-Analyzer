@@ -101,6 +101,11 @@ setInterval( function() {
 	}
 	io.sockets.emit('emotionUpdate', JSON.stringify(arr));
 }, 3000);
+
+
 io.sockets.on('connection', function (socket) {
-  socket.emit('init', trendsList);
+	socket.emit('init', trendsList);
+	socket.on('reqStream', function(data) {
+		apiCalls.createStream(data.credentials, data.filter, socket);
+	});	
 });
