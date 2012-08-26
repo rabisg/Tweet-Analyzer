@@ -16,7 +16,7 @@ function createStream(credentials, filter, socket) {
 	
 	var options = {
 		host: 'stream.twitter.com',
-		path: '/1/statuses/filter.json?track=twitter,obama,ftw&locations=-180,-90,180,90',
+		path: '/1/statuses/filter.json?track=hello,love,india&locations=-180,-90,180,90',
 		headers: {
 			'Authorization': 'Basic ' + new Buffer(username + ':' + password).toString('base64')
 		}
