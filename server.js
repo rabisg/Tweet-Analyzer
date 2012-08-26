@@ -106,6 +106,6 @@ setInterval( function() {
 io.sockets.on('connection', function (socket) {
 	socket.emit('init', trendsList);
 	socket.on('reqStream', function(data) {
-		apiCalls.createStream(null, null, socket);
+		apiCalls.createStream(data.credentials, data.filter, socket);
 	});	
 });

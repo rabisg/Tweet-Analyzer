@@ -7,16 +7,13 @@ var jsonline = require('json-line-protocol').JsonLineProtocol,
 function createStream(credentials, filter, socket) {
 
 	var jsonTwitter = new jsonline();
-	//var 	username = credentials.username,
-	//	password = credentials.password;
-		
-	var username = 'rabi_shanker',
-	password = 'e-1o0z6s';
+	var 	username = credentials.user,
+	password = credentials.pass;
 	
 	
 	var options = {
 		host: 'stream.twitter.com',
-		path: '/1/statuses/filter.json?track=hello,love,india&locations=-180,-90,180,90',
+		path: '/1/statuses/filter.json?' + filter,
 		headers: {
 			'Authorization': 'Basic ' + new Buffer(username + ':' + password).toString('base64')
 		}

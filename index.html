@@ -259,12 +259,12 @@ google.maps.event.addListener(marker, 'click', function() {
 	</script>
 
 	<div id="searchwrapper">
-		<form method="POST" action="">
-			<input id="terms" type="terms" id="terms" onfocus="this.value='';" name="terms" value="Comma-Separated Search Terms">
+		<form method="GET" action="search.html">
+			<input id="terms" type="terms"  onfocus="this.value='';" name="track" value="Comma-Separated Search Terms">
 
-			<input type="username" id="username" name="username" onfocus="this.value='';" value="Twitter Username">
+			<input type="username" id="username" name="user" onfocus="this.value='';" value="Twitter Username">
 
-			<input type="password" id="password" name="password" onfocus="this.value='';" value="Twitter Password">
+			<input type="password" id="password" name="pass" onfocus="this.value='';" value="Twitter Password">
 
 			<input type="submit" value="Search Trends" /> 
 		</form>

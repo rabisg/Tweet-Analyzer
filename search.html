@@ -124,7 +124,7 @@ function initialize() {
     });
 }
 
-    var keywords = ['hello','love', 'india'];
+    var keywords = getParam('track').split(',');
     var trends = [];
     for(i=0; i<keywords.length; i++)
       trends[i]=[];
@@ -132,7 +132,10 @@ function initialize() {
     var socket = io.connect('localhost');
     socket.on('init', function (data) {
       console.log("initialised");
-    socket.emit('reqStream', {});
+      var credentials = {'user': getParam('user'), 'pass': getParam('pass')};
+      var filter = 'track='+getParam('track')+'&locations=-180,-90,180,90';
+      console.log(keywords);
+      socket.emit('reqStream', {'credentials':credentials, 'filter':filter});
     });
     socket.on('tweet', function(data) {
       Analyze(data, keywords, trends);
