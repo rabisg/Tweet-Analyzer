@@ -4,16 +4,19 @@ var jsonline = require('json-line-protocol').JsonLineProtocol,
 	util = require('./util'),
 	http = require('http');
 
-function filterStream(credentials, filter, callback) {
+function createStream(credentials, filter, socket) {
 
 	var jsonTwitter = new jsonline();
-	var 	username = credentials.username,
-		password = credentials.password;
+	//var 	username = credentials.username,
+	//	password = credentials.password;
 		
+	var username = 'rabi_shanker',
+	password = 'e-1o0z6s';
+	
 	
 	var options = {
 		host: 'stream.twitter.com',
-		path: '/1/statuses/filter.json?' + filter,
+		path: '/1/statuses/filter.json?track=twitter,obama,ftw&locations=-180,-90,180,90',
 		headers: {
 			'Authorization': 'Basic ' + new Buffer(username + ':' + password).toString('base64')
 		}
@@ -29,7 +32,7 @@ function filterStream(credentials, filter, callback) {
 	});
 
 	jsonTwitter.on('value', function (value) {
-		onStatusCallback(value);
+		socket.emit('tweet', value);
 	});
 }
 
@@ -127,4 +130,4 @@ function stream(onStatusCallback){
 exports.getAvailableCountries = getAvailableCountries;
 exports.stream = stream;
 exports.fetchTrends = fetchTrends;
-exports.filterStream = filterStream;
+exports.createStream = createStream;

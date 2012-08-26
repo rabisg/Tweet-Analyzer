@@ -53,6 +53,26 @@ function moodAnalyze(text2) {
 	else return 0;
 }
 
+function Analyze(data, keywords, trends) {
+	var keyword =  -1;
+	for(i=0; i<keywords.length; i++)
+		if(data.text.substr(keywords[i]) >= 0)
+			keyword =  i;
+	if(data.place && keyword>=0) {
+		if(!trends[keyword].hasOwnProperty(data.place.country_code))
+			trends[keyword][data.place.country_code] = {
+				'positive': 0,
+				'negative': 0,
+				'neutral': 0
+			};
+		if((m = moodAnalyze(data.text))==1)
+			trends[keyword][data.place.country_code]['positive'] += 1;
+		else if(m==-1)
+			trends[keyword][data.place.country_code]['negative'] += 1;
+		else trends[keyword][data.place.country_code]['neutral'] += 1;
+		console.log(trends);
+	}
+}
 
 exports.moodAnalyze = moodAnalyze;
 exports.merge = merge;
